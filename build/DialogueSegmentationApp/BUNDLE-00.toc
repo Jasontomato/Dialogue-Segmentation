@@ -1,0 +1,3 @@
+([('DialogueSegmentationApp',
+   '/Users/lennoliao/Documents/Rui_Project/Dialogue-Segmentation/dist/DialogueSegmentationApp',
+   'EXECUTABLE')],)
