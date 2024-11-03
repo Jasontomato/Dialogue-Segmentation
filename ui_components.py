@@ -1,6 +1,6 @@
-# ui_components.py
+import os
 import sys
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog, QMessageBox, QLineEdit, QHBoxLayout
 from PySide6.QtGui import QTextCursor
 from converter import convert_to_csv
 
@@ -18,10 +18,21 @@ class DialogueSegmentationApp(QWidget):
         self.select_button.clicked.connect(self.select_file)
         layout.addWidget(self.select_button)
         
+        # Create a horizontal layout for the file name input and convert button
+        file_name_layout = QHBoxLayout()
+        
+        # File name input field
+        self.file_name_input = QLineEdit()
+        self.file_name_input.setPlaceholderText("Enter output file name")
+        file_name_layout.addWidget(self.file_name_input)
+        
         # Convert button
         self.convert_button = QPushButton("Convert")
         self.convert_button.clicked.connect(self.convert_file)
-        layout.addWidget(self.convert_button)
+        file_name_layout.addWidget(self.convert_button)
+        
+        # Add the horizontal layout to the main layout
+        layout.addLayout(file_name_layout)
         
         # Status label
         self.status_label = QLabel("No file selected")
@@ -55,10 +66,22 @@ class DialogueSegmentationApp(QWidget):
 
     def convert_file(self):
         if self.selected_file_path:
+            # Get the user-defined file name or use a default name if none is provided
+            user_file_name = self.file_name_input.text().strip()
+            if not user_file_name:
+                user_file_name = "output.csv"  # Default file name if input is empty
+            else:
+                # Ensure the file name ends with ".csv"
+                if not user_file_name.endswith(".csv"):
+                    user_file_name += ".csv"
+            
+            # Construct the full path in the Downloads directory
+            downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+            output_file_path = os.path.join(downloads_dir, user_file_name)
+            
             try:
-                convert_to_csv(self.selected_file_path, "/Users/lennoliao/Downloads/CsvOutput.csv")
-                self.status_label.setText("Custom Conversion Complete!")
+                convert_to_csv(self.selected_file_path, output_file_path)
+                self.status_label.setText(f"Conversion Complete! Saved to: {output_file_path}")
             except Exception as e:
                 self.status_label.setText("Conversion failed.")
                 QMessageBox.critical(self, "Conversion Error", str(e))
-
