@@ -2,7 +2,7 @@
 
 **Author**: Jason
 
-This project, **Dialogue Segmentation App**, is a user-friendly desktop application designed to allow users to load text files, process them, and export dialogue segments into a structured CSV file format. Users can specify the output file name, and files are automatically saved to the Downloads folder for easy access.
+This project, **Dialogue Segmentation App**, is a Mac OS user-friendly desktop application designed to allow users to load text files, process them, and export dialogue segments into a structured CSV file format. Users can specify the output file name, and files are automatically saved to the Downloads folder for easy access.
 
 ## Table of Contents
 
@@ -10,7 +10,6 @@ This project, **Dialogue Segmentation App**, is a user-friendly desktop applicat
 - [Features](#features)
 - [Setup](#setup)
 - [Usage](#usage)
-- [License](#license)
 
 ---
 
